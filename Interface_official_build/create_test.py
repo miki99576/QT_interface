@@ -108,6 +108,3 @@ def create_test():
 			
 
 	window.close()
-
-
-create_test()
