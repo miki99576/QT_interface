@@ -42,10 +42,8 @@ while True:
         break
     if event=="script":
         	script_window()
-
     if event == "-CLASS LIST-":
     	Student_menu()
-
     if event == "-TEST-":
     	create_test()
 

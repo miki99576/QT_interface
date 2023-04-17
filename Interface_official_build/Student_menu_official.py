@@ -150,3 +150,8 @@ def Student_menu():
             window["-STUDENT LIST-"].update(values=[read_csv(file_csv,"Full_Name")[i] for i in range(getlines(file_csv))])
 
     window.close()
+
+
+
+
+Student_menu()

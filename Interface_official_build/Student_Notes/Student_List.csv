@@ -1,6 +1,5 @@
-Full_Name,student_number
-John wayne,60227
-Alan walker,301345
-Michael Jreij,202349
-woody_woodpecker,123456
-Nice One_yup,1234576
+Full_Name;student_number
+John wayne;60227
+Alan walker;301345
+Michael Jreij;202349
+woody_woodpecker;123456
