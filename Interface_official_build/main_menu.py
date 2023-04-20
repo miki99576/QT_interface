@@ -20,7 +20,7 @@ from functions import display_csv
 #append new line to a csv file
 
 qt = [
-	 [sg.Image('QT.png',size = (250,200))]
+	 [sg.Image('/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/QT.png',size = (250,200))]
 ]
 main_menu = [
 	[sg.Button("Script",key="script",),sg.Button("Create a test",key="-TEST-",),sg.Button("Class List",key="-CLASS LIST-",),]
@@ -41,11 +41,8 @@ while True:
     if event == "Exit" or event == sg.WIN_CLOSED:
         break
     if event=="script":
-        	script_window()
+        script_window()
     if event == "-CLASS LIST-":
-    	Student_menu()
+        Student_menu()
     if event == "-TEST-":
     	create_test()
-
-
-        	    

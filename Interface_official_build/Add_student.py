@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import PySimpleGUI as psg
 import shutil
 
-file_csv = './Student_Notes/Student_List.csv'
+file_csv = '/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Student_Notes/Student_List.csv'
 
 
 def add_student_page():
@@ -52,7 +52,7 @@ def add_student_page():
 			print(str(first_name)+"_"+str(last_name))
 			append_csv(file_csv,full_name,str(student_number))
 			print(values["-IMAGE-"])
-			create_student(full_name,"./Student_Notes/","Date","Emotion_Reading","Gesture_Imitation","Simple_Questions",str(values["-IMAGE-"]))
+			create_student(full_name,"/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Student_Notes/","Date","Emotion_Reading","Gesture_Imitation","Simple_Questions",str(values["-IMAGE-"]))
 
 
 	window.close()   

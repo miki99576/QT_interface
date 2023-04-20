@@ -1,0 +1,4 @@
+<launch>
+  <node name="face_follow" pkg="face_follow" type="face_follow.py" output="screen">
+  </node>
+</launch>

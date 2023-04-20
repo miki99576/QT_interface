@@ -24,7 +24,7 @@ def script_window():
 	    ],
 	    [
 	        sg.Listbox(
-	            values=[read_csv("rep.csv","name")[i] for i in range(getlines("rep.csv"))], enable_events=True, size=(40, 20), key="-FILE LIST-"
+	            values=[read_csv("/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/rep.csv","name")[i] for i in range(getlines("/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/rep.csv"))], enable_events=True, size=(40, 20), key="-FILE LIST-"
 	        )
 	    ],
 	]
@@ -62,12 +62,12 @@ def script_window():
 	        file = values["-FILE-"]
 	        basename = os.path.basename(file)
 	        #file_list.append(file)
-	        append_csv('rep.csv',basename,file)
+	        append_csv('/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/rep.csv',basename,file)
 	        #window["-FILE LIST-"].update(file_list)    
 	    if event == "-FILE LIST-":
 	        print(values["-FILE LIST-"])
-	        window["-TOUT-"].update(search("rep.csv","name",values["-FILE LIST-"][0],"repositry"))
-	        window["-REP-"].update(search("rep.csv","name",values["-FILE LIST-"][0],"repositry"))
+	        window["-TOUT-"].update(search("/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/rep.csv","name",values["-FILE LIST-"][0],"repositry"))
+	        window["-REP-"].update(search("/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/rep.csv","name",values["-FILE LIST-"][0],"repositry"))
 	        #window["-IMAGE-"].update(filename=filename)  
 	   
 

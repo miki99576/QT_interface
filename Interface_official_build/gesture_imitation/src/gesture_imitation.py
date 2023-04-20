@@ -41,7 +41,7 @@ def rules():
     try:
         # call a ros service with text message
         rospy.loginfo("Explaining rules !")
-        # speechSay("Je vais te montrer des mouvements et tu dois les imiter.")
+        speechSay("Je vais te montrer des mouvements et tu dois les imiter.")
     except KeyboardInterrupt:
         pass
 
@@ -49,7 +49,7 @@ def end():
     try:
         # call a ros service with text message
         rospy.loginfo("End of the exercise")
-        #speechSay("Fin de l'exercice, merci pour tes réponses !")
+        speechSay("Fin de l'exercice, merci pour tes réponses !")
     except KeyboardInterrupt:
         pass
 
@@ -69,6 +69,7 @@ def gesturesImitation(gesture):
     
     try:
         rospy.loginfo("Gesture: %s", gesture)
+        speechSay("regarde le geste !")
         emotionShow('gestures/' + gesture)
                         
         rospy.loginfo("End of the gesture")

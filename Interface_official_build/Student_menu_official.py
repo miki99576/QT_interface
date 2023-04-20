@@ -23,8 +23,8 @@ import PySimpleGUI as psg
 
 
 #Defining Variables
-file_csv = './Student_Notes/Student_List.csv' # contains path torwards list of students
-parent_directory = './Student_Notes' #path torwards the directory where the list of students,student directories are kept
+file_csv = '/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Student_Notes/Student_List.csv' # contains path torwards list of students
+parent_directory = '/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Student_Notes' #path torwards the directory where the list of students,student directories are kept
 
 
 
@@ -154,4 +154,3 @@ def Student_menu():
 
 
 
-Student_menu()

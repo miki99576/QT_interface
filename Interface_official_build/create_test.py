@@ -1,3 +1,4 @@
+import subprocess
 import PySimpleGUI as sg
 import os.path
 import csv
@@ -15,14 +16,15 @@ from functions import getlines
 from functions import generate_buttons
 from Emo_Recog import emotion_recognition
 from Simple_questions import simpleQuestions
+from gesture_imitation.src.gesture_imitation import rules,end
 from functions import simple_search
 from functions import gesture_conversion
 
 #Defining the path for questions and student's lists
-student_csv_path = "/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Student_Notes/Student_List.csv"
-gesture_questions_csv = "/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Questions/gesture_questions.csv"
-emotion_imitation_csv = "/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Questions/emotion_questions.csv"
-simple_questions_csv= "/home/qtrobot/catkin_ws/src/Interface_official_build-20230412T073658Z-001/Interface_official_build/Questions/Simple_Questions.csv"
+student_csv_path = "./Student_Notes/Student_List.csv"
+gesture_questions_csv = "./Questions/gesture_questions.csv"
+emotion_imitation_csv = "./Questions/emotion_questions.csv"
+simple_questions_csv= "./Questions/simple_questions.csv"
 
 
 
@@ -103,6 +105,7 @@ def create_test():
     #-----------------------
     j = 0
     Score = 0
+    face_follow = subprocess.Popen(["roslaunch","face_follow","face_follow.launch"])
     while True:
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
@@ -129,22 +132,27 @@ def create_test():
 
             # Part for Gesture Imitation
             window.extend_layout(window['-ROW_PANEL-'],generate_buttons(gesture_val[0],True)[3])
+            rules()
             #question(generate_buttons[0])
-        
+
+
+    
         if len(gesture_val) != 0:
             gesture_val1 = gesture_conversion(gesture_questions_csv,gesture_val)
             if event == generate_buttons(gesture_val[j],True,)[5]:
+                window[generate_buttons(gesture_val[j],True)[4]].update(visible=False)
+                window[generate_buttons(gesture_val[j],True)[5]].update(visible=False)
                 if j != len(gesture_val)-1:
                     print(generate_buttons(gesture_val[j+1],True,)[5])
+                    os.system("roslaunch gesture_imitation gesture_imitation.launch gesture:="+gesture_val1[j+1])
                     window.extend_layout(window['-ROW_PANEL-'],generate_buttons(gesture_val[j+1],True)[3])
                     j+=1
-                    #question(gesture_val[j])
-                    os.system("roslaunch gesture_imitation gesture_imitation.launch gesture:="+gesture_val1[j])
+                    
 
             if event == generate_buttons(gesture_val[j],True,)[4]:
-                #question(gesture_val[j])
                 os.system("roslaunch gesture_imitation gesture_imitation.launch gesture:="+gesture_val1[j])
-
+        
+            
 
 # the next event is to test if we could get the values of all the true buttons pushed, we did the same loop as above but instead of outputting the question, we output the key from the true buttons
 # if the button is clicked it becomes unclickable
@@ -157,9 +165,7 @@ def create_test():
             if event== generate_buttons(gesture_val[i],True)[2]:
                 window[generate_buttons(gesture_val[i],True)[1]].update(disabled=True)
                 window[generate_buttons(gesture_val[i],True)[2]].update(disabled=True,button_color = ('black','yellow'))
-            
-
+    face_follow.terminate()
     window.close()
 
 
-create_test()
