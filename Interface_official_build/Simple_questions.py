@@ -14,8 +14,6 @@ def simpleQuestions(questionsAnswers):
     # define the ros service
     speechSay = rospy.ServiceProxy('/qt_robot/speech/say', speech_say)
     recognize = rospy.ServiceProxy('/qt_robot/speech/recognize', speech_recognize)
-    rospy.init_node('simple_questions_node')
-    rospy.loginfo("simple_questions_node started!")
 
     # block/wait for ros service
     rospy.wait_for_service('/qt_robot/speech/say')
@@ -27,7 +25,7 @@ def simpleQuestions(questionsAnswers):
 
         # call a ros service with text message
         rospy.loginfo("Explaining rules !")
-        speechSay("Je vais maintenant te demander de répondre au questions que je vais te poser.")
+        #speechSay("Je vais maintenant te demander de répondre au questions que je vais te poser.")
         score = 0
         interaction = 0
         for i in range(len(questionsAnswers)):
@@ -69,7 +67,10 @@ def simpleQuestions(questionsAnswers):
 
         rospy.loginfo("End of the exercise")
         speechSay("Fin de l'exercice, merci pour tes réponses !")
-        finalScore = str(int(score/interaction*100))
+        if interaction == 0:
+            finalScore = 0
+        else:
+            finalScore = str(int(score/interaction*100))
         rospy.loginfo("The answers are %s pourcent right !", finalScore)
     except KeyboardInterrupt:
         pass

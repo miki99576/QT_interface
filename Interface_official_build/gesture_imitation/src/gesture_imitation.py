@@ -37,7 +37,7 @@ class image_converter:
             print(e)
 
 
-def rules():
+def rules_gesture():
     try:
         # call a ros service with text message
         rospy.loginfo("Explaining rules !")
@@ -45,7 +45,7 @@ def rules():
     except KeyboardInterrupt:
         pass
 
-def end():
+def end_gesture():
     try:
         # call a ros service with text message
         rospy.loginfo("End of the exercise")
@@ -57,8 +57,8 @@ def gesturesImitation(gesture):
     rospy.loginfo("Gesture imitation launched, waiting for the services to initialized!")
     
     # define the ros service
-    rospy.init_node('gesture_imitation_node')
-    rospy.loginfo("gesture_imitation_node started!")
+    #rospy.init_node('gesture_imitation_node')
+    #rospy.loginfo("gesture_imitation_node started!")
 
     # block/wait for ros service
     rospy.wait_for_service('/qt_robot/speech/say')
@@ -76,6 +76,6 @@ def gesturesImitation(gesture):
     except KeyboardInterrupt:
         pass
 
-rospy.loginfo(str(sys.argv[1]))
-gesturesImitation(str(sys.argv[1]))
-rospy.loginfo("finsihed!")
+#rospy.loginfo(str(sys.argv[1]))
+#gesturesImitation(str(sys.argv[1]))
+#rospy.loginfo("finsihed!")

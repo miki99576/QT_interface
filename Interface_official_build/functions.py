@@ -6,6 +6,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import PySimpleGUI as psg
 import shutil
+import sys
+import rospy
+from std_msgs.msg import String
+from qt_nuitrack_app.msg import Faces
+from qt_robot_interface.srv import *
+from qt_nuitrack_app.msg import Gestures
+
 
 seperator=";"
 
@@ -166,3 +173,6 @@ def gesture_conversion(file_name,names):
                     if row[1]==name:
                         questions_list.append(row[0])
     return questions_list
+
+
+

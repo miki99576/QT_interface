@@ -1,0 +1,68 @@
+#!/usr/bin/env python
+
+# this script holds the functions for the check_child file
+
+import sys
+import csv
+import rospy
+from qt_robot_interface.srv import *
+from qt_vosk_app.srv import *
+
+
+csv_name="check_child.csv"
+
+
+def empty(csv_name):
+    f = open(csv_name, "w")
+    f.truncate()
+    f.close()
+    print("emptying successfull")
+    
+def emotion_check(csv_name,index,emotion_checked):
+    i = 0
+    with open(csv_name, 'r') as file:
+        csvreader = csv.reader(file)
+        for row in csvreader:
+            if len(row)!=0:
+                #print("Curently examining row: ")
+                #print(row)
+                em = max(row)
+                #print("the max of the row: "+ em)
+                em_index = row.index(em)
+                if em_index == index:
+                    i = i+1
+                    print("the subject is angry at row: "+ str(row))   
+                else:
+                    pass
+    if i == 0:
+        print("emotion not registered")
+    else:
+        print("correct emotion")    
+        print(i)
+    return i 
+
+def emotion(emo):
+        faces_list = ["angry","happy","neutral"]
+        emotionShow = rospy.ServiceProxy('/qt_robot/emotion/show', emotion_show)
+        emotionShow("QT/"+faces_list[emo])
+    
+def face_callback(msg):
+        print("starting callback")
+        emotions = [msg.faces[0].emotion_angry,msg.faces[0].emotion_happy, msg.faces[0].emotion_surprise,msg.faces[0].emotion_neutral]
+        em = max(emotions)
+        em_index = emotions.index(em)
+        
+        # open the file in the write mode
+        with open('hello.csv', 'a') as f:
+    		# create the csv writer
+            writer = csv.writer(f)
+
+    		# write a row to the csv file
+            writer.writerow(emotions)
+        if time.time()>future:
+            print("time is now")
+            unregister(face)
+
+def unregister(face):
+    face.unregister()
+# define ros subscriber

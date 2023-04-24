@@ -43,8 +43,6 @@ def emotion_recognition(questions):
     # define the ros service
     speechSay = rospy.ServiceProxy('/qt_robot/speech/say', speech_say)
     recognize = rospy.ServiceProxy('/qt_robot/speech/recognize', speech_recognize)
-    rospy.init_node('simple_questions_node')
-    rospy.loginfo("simple_questions_node started!")
 
     # block/wait for ros service
     rospy.wait_for_service('/qt_robot/speech/say')
@@ -56,7 +54,7 @@ def emotion_recognition(questions):
 
         # call a ros service with text message
         rospy.loginfo("Explaining rules !")
-        speechSay("Je vais maintenant te demander de répondre au questions que je vais te poser.")
+        speechSay("Je vais te montrer des emotion et tu dois les identifier.")
         score = 0
         interaction = 0
         for i in range(len(questions)):
@@ -78,13 +76,6 @@ def emotion_recognition(questions):
                 score += 1
                 interaction += 1
 
-            elif any(question in resp.transcript for question in question.split()):
-                print(question.split())
-                print(any(question in resp.transcript for question in question.split()))
-                speechSay("Il ne faut pas répéter la question mais y répondre.")
-                rospy.loginfo("The question has been repeated by the children")
-                i = i-1
-                interaction += 1
 
             elif not resp.transcript:
                 speechSay("Je n'ai pas bien entendu ta réponse.")
@@ -92,18 +83,19 @@ def emotion_recognition(questions):
                 i = i-1
                 
             else:
-                speechSay("Merci pour ta réponse.")
+                #speechSay("Merci pour ta réponse.")
                 rospy.loginfo("Answer is not right")
                 interaction += 1
 
         rospy.loginfo("End of the exercise")
         speechSay("Fin de l'exercice, merci pour tes réponses !")
-        finalScore = str(int(score/interaction*100))
+        if interaction == 0:
+            finalScore = 0
+        else:
+            finalScore = str(int(score/interaction*100))
         rospy.loginfo("The answers are %s pourcent right !", finalScore)
     except KeyboardInterrupt:
         pass
     
     return finalScore
 
-#simpleQuestions([['De quelle couleur est la banane ?', 'jaune','vert'], ['De quelle couleur est la pomme ?', 'rouge','vert']])
-#rospy.loginfo("finsihed!")
