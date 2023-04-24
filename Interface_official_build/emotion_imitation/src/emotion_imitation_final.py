@@ -8,6 +8,7 @@ import time
 from qt_nuitrack_app.msg import Gestures
 import csv
 
+speechSay = rospy.ServiceProxy('/qt_robot/speech/say', speech_say)
 
 # this function is used in emotion_imitation and responsible for emptying the csv once program is completed to avoid having alot of data, we only need one reading.
 def empty(csv_name):
@@ -86,17 +87,26 @@ def emotion_imitation(emotion_shown):
     if emotion_shown == "angry":
 
       if emotion_check("emotion_imitation.csv",0,"angry")>0:
+        speechSay("Bravo c'est la bonne repose")
         print("the subject is angry")
         score += 1
+      else:
+          speechSay("Passons à l'emotion suivant")  
     if emotion_shown == "happy":
       if emotion_check("emotion_imitation.csv",1,"happy")>0:
         print("the subject is happy")
-        score += 1    
+        speechSay("Bravo c'est la bonne repose")
+        score += 1
+      else:
+          speechSay("Passons à l'emotion suivant")      
     if emotion_shown == "neutral":
+      
       if emotion_check("emotion_imitation.csv",4,"neutral")>0:
+        speechSay("Bravo c'est la bonne repose")
         print("the subject is neutral")
         score += 1
-
+      else:
+          speechSay("Passons à l'emotion suivant")  
     finalScore = str(int(score/100))
     return finalScore
 
@@ -106,8 +116,7 @@ def emotion_imitation_detection(imitation_face):
     global future 
     future = now + 20
     #emotion_imitation("angry")
-    speechSay = rospy.ServiceProxy('/qt_robot/speech/say', speech_say)
-    rospy.init_node('Emotion_node')
+    
     empty("emotion_imitation.csv")
     
     emotion(imitation_face)

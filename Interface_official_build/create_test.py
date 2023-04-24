@@ -137,6 +137,7 @@ def create_test():
                 simpleQuestions(simple_search(simple_questions_csv,question_val))
 
             if len(emotion_imitation_val) != 0:
+                rules_emotion()
                 for emo_imi in emotion_imitation_val:
                     emotion_imitation_detection(emo_imi)
 

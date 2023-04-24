@@ -98,13 +98,11 @@ def check_child():
 
         # call a ros service with text message
         rospy.loginfo("Explaining rules!")
-        #speechSay("Je vais maintenant vous poser une question")
-        print("Je vais maintenant vous poser une question")
+        speechSay("Je vais maintenant vous poser une question")
         good_answers = ["ça va","oui","merci","hello","ça roule"]
         bad_answers = ["ça va pas","non"]
         # asks a question to check child, ex: "How are you doing?"
         speechSay("Comment vas-tu aujourd'hui ?")
-        print("Comment vas-tu aujourd'hui ?")
         resp = recognize("fr_FR", [], 10)
      
         
